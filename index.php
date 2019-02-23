@@ -1,5 +1,3 @@
-define('ROOT', dirname(__FILE__));
-
 function binarySearch($file, $key_value){
     $handle = fopen($file, "r");
     while (!feof($handle)) {
