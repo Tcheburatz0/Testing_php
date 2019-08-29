@@ -1,9 +1,12 @@
+define('ROOT', dirname(__FILE__));
+
 function binarySearch($file, $key_value){
     $handle = fopen($file, "r");
     while (!feof($handle)) {
         $string = fgets($handle,4000);
-        mb_convert_encoding($string, 'cp1251');
-        $arrayString = explode('\x0A', $string);
+        mb_convert_encoding($string, 'cp1251');        
+        $arrayString = explode('\x0A', $string); 
+        array_pop($arrayString);
         foreach ($arrayString as $key = > value) {
             $arr[] = explode('\t', value);
         }
