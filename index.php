@@ -1,30 +1,30 @@
-define('ROOT', dirname(__FILE__));
-
-function binarySearch($file, $key_value){
+<?php
+function binarySearch($file, $searchingKey){
     $handle = fopen($file, "r");
-    while (!feof($handle)) {
-        $string = fgets($handle,4000);
-        mb_convert_encoding($string, 'cp1251');        
-        $arrayString = explode('\x0A', $string); 
-        array_pop($arrayString);
-        foreach ($arrayString as $key = > value) {
-            $arr[] = explode('\t', value);
+
+    while(!feof($handle)){
+        $data = fgets($handle);
+        $split = explode('\x0A', $data);
+
+        foreach($split as $key => $value){
+            $arr[] = explode('\t', $value);
         }
+
         $start = 0;
-        $end = count($arr - 1);
+        $end = count($arr) - 1;
 
         while ($start <= $end) {
-            $middle = floor (($start + $ end)/2);
-            $res = $strnatcmp($arr[$middle][0],$key_value);
-
-            if ($res > 0) {
-                $end = $middle - 1;
-            } elseif ($res < 0) {
-                $start = $middle + 1;
-            } else {
-                return $arr[$middle][1];
+            $half = floor(($start + $end) / 2);
+            $check = strnatcmp($arr[$half][0], $searchingKey);
+            if ($check == 0){
+                return $arr[$half][1];
+            } elseif ($check < 0){
+                $start = $half + 1;
+            } elseif ($check > 0){
+                $end = $half - 1;
             }
         }
     }
     return 'undef';
 }
+?>
